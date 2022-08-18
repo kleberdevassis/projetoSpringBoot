@@ -1,4 +1,4 @@
-package br.com.springboot.curso_jdev_treinamento.model;
+package br.com.springboot.projetoSpring.model;
 
 import java.io.Serializable;
 
@@ -15,7 +15,7 @@ public class Usuario implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_usuario") 
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_usuario")
 	private Long id;
 
 	private String nome;

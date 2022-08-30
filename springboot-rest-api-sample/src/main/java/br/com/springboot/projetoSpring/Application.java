@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
  *
- * Spring Boot application starter clas
+ * Spring Boot application starter class
  */
 @SpringBootApplication
 public class Application {

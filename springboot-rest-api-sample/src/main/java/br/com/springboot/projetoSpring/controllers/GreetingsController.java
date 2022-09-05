@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -56,4 +58,16 @@ public class GreetingsController {
     	   return new ResponseEntity<List<Usuario>>(usuarios, HttpStatus.OK); // retorna a lista em JSON
     }
     
-}
+    @PostMapping(value = "salvar") // Mapeia a url
+    @ResponseBody // Descricao da resposta
+    public ResponseEntity<Usuario> salvar(@RequestBody Usuario usuario){ // recebe os dados para salvar
+    	
+    Usuario user = 	usuarioRepository.save(usuario);
+    	
+    return new ResponseEntity<Usuario>(user, HttpStatus.CREATED);
+    	
+    }
+    
+    }
+    
+

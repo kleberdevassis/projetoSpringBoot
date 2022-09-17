@@ -69,7 +69,7 @@
 					
 					alert("Gravou com sucesso")
 				}
-			}).fall(function (xhr, status, errorThrown) {
+			}).fail(function (xhr, status, errorThrown) {
 				alert("Erro ao salvar usuario" + xhr.responseText);
 			})
 		}

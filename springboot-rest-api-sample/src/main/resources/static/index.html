@@ -40,46 +40,56 @@
 
 	</form>
 	<button type="button" class="btn btn-primary" onclick=salvarUsuario()>Salvar</button>
-	<button type="button" class="btn btn-secondary" onclick= "document.getElementById('formCadastroUser').reset();" >novo</button>
-    
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">Open modal for @mdo</button>
+	<button type="button" class="btn btn-secondary"
+		onclick="document.getElementById('formCadastroUser').reset();">novo</button>
 
- 
+	<button type="button" class="btn btn-primary" data-bs-toggle="modal"
+		data-bs-target="#modalPesquisarUser" data-bs-whatever="@mdo">Pesquisar</button>
 
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">New message</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <form>
-          <div class="mb-3">
-            <label for="recipient-name" class="col-form-label">Recipient:</label>
-            <input type="text" class="form-control" id="recipient-name">
-          </div>
-          <div class="mb-3">
-            <label for="message-text" class="col-form-label">Message:</label>
-            <textarea class="form-control" id="message-text"></textarea>
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Send message</button>
-      </div>
-    </div>
-  </div>
-</div>
-    
-    
-    
-  
-    
-    
-    
-    
+
+
+	<div class="modal fade" id="modalPesquisarUser" tabindex="-1"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Pesquisa de
+						Usuário</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"
+						aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<form>
+						<div class="mb-3">
+							<label for="name-busca" class="col-form-label">Informe o
+								nome</label> <input type="text" class="form-control" id="name-busca">
+						</div>
+						<button type="button" class="btn btn-success" onclick="pesquisarUser">Buscar</button>
+					</form>
+
+
+					<table class="table" id="tabelaresultados">
+						<thead>
+							<tr>
+								<th scope="col">ID</th>
+								<th scope="col">Nome</th>
+								<th scope="col">Editar</th>
+							</tr>
+						</thead>
+						<tbody>
+
+						</tbody>
+					</table>
+
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary"
+						data-bs-dismiss="modal">Fechar</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
 	<script src="https://code.jquery.com/jquery-3.6.1.min.js"
 		integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ="
 		crossorigin="anonymous"></script>
@@ -91,6 +101,34 @@
 		crossorigin="anonymous"></script>
 
 	<script type="text/javascript">
+	
+	function pesquisarUser(){
+		var nome = $('#nameBusca').val();
+		
+		if(nome !=null && nome.trim() != ''){
+			
+			$.ajax({
+				method: "GET",
+				url:"buscarPorNome",
+				data: "name=" +nome ,
+				success: function (response) {
+					$('#tabelaresultados > tbody > tr').remove();
+					
+					for(var i = 0; i< response.length; i++){
+						$('#tabelaresultados > tbody').append('<tr><td>'+response[i].id+'</td></tr>');
+					}
+					
+				
+				}
+			}).fail(function (xhr, status, errorThrown) {
+				alert("Erro ao buscar usuario" + xhr.responseText);
+			})
+			
+		}
+	}
+	
+	
+	
 		function salvarUsuario(){
 			var id = $("#id").val();
 			var nome = $("#nome").val();
@@ -110,6 +148,8 @@
 			}).fail(function (xhr, status, errorThrown) {
 				alert("Erro ao salvar usuario" + xhr.responseText);
 			})
+			
+			
 		}
 		
 		

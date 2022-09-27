@@ -113,9 +113,10 @@
 				data: "name=" +nome ,
 				success: function (response) {
 					$('#tabelaresultados > tbody > tr').remove();
-					
 					for(var i = 0; i< response.length; i++){
-						$('#tabelaresultados > tbody').append('<tr><td>'+response[i].id+'</td></tr>');
+						
+						$('#tabelaresultados > tbody').append('<tr><td>'+response[i].id+'</td><td>'+response[i].nome+'</td></tr>');
+						alert(response[i]);
 					}
 					
 				

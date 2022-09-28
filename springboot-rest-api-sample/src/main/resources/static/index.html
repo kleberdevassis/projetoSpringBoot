@@ -64,7 +64,7 @@
 							<label for="name-busca" class="col-form-label">Informe o
 								nome</label> <input type="text" class="form-control" id="name-busca">
 						</div>
-						<button type="button" class="btn btn-success" onclick="pesquisarUser">Buscar</button>
+						<button type="button" class="btn btn-success" onclick="pesquisarUsuario">Buscar</button>
 					</form>
 
 
@@ -102,31 +102,33 @@
 
 	<script type="text/javascript">
 	
-	function pesquisarUser(){
-		var nome = $('#nameBusca').val();
-		
-		if(nome !=null && nome.trim() != ''){
-			
-			$.ajax({
-				method: "GET",
-				url:"buscarPorNome",
-				data: "name=" +nome ,
-				success: function (response) {
-					$('#tabelaresultados > tbody > tr').remove();
-					for(var i = 0; i< response.length; i++){
-						
-						$('#tabelaresultados > tbody').append('<tr><td>'+response[i].id+'</td><td>'+response[i].nome+'</td></tr>');
-						alert(response[i]);
-					}
-					
-				
-				}
-			}).fail(function (xhr, status, errorThrown) {
-				alert("Erro ao buscar usuario" + xhr.responseText);
-			})
-			
-		}
-	}
+function pesquisarUsuario(){
+        
+        var nome = $('#name-busca').val();
+                
+                if(nome !=null && nome.trim() != ''){
+                    
+                    $.ajax({
+                        method: "GET",
+                        url:"buscarPorNome",
+                        data: "name=" +nome,
+                        success: function (response) {
+                        	$('#tabelaresultados > tbody > tr').remove();
+        					for(var i = 0; i< response.length; i++){
+        						
+        						$('#tabelaresultados > tbody').append('<tr><td>'+response[i].id+'</td><td>'+response[i].nome+'</td></tr>');
+        						alert(response[i]);
+        						
+        					}
+        					
+                            console.log(response);
+                        }
+                    }).fail(function (xhr, status, errorThrown) {
+                        alert("Erro ao buscar usuario" + xhr.responseText);
+                    })
+                    
+                }
+    }
 	
 	
 	
